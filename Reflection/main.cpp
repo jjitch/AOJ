@@ -9,6 +9,7 @@ class Vec2
 public:
 	T x;
 	T y;
+
 	Vec2 operator - (Vec2 obj) {
 		return Vec2(this->x - obj.x, this->y - obj.y);
 	}

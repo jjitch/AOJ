@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Projection", "Projection\Pr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Reflection", "Reflection\Reflection.vcxproj", "{2DCCA2B6-A5D9-4726-A4BF-23C6D3CC58F1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ComputationalGeometory", "ComputationalGeometory", "{351F3353-8629-4D6D-A78C-C6418F47A6A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -44,6 +46,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{65DC8AEE-A252-47A5-9024-1C97FC1179E8} = {351F3353-8629-4D6D-A78C-C6418F47A6A2}
+		{745836F4-5D28-4F88-970E-D3774798806E} = {351F3353-8629-4D6D-A78C-C6418F47A6A2}
+		{2DCCA2B6-A5D9-4726-A4BF-23C6D3CC58F1} = {351F3353-8629-4D6D-A78C-C6418F47A6A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3716907B-242C-4E4B-B492-FAE8A16012CE}
