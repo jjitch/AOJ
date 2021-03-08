@@ -1,7 +1,21 @@
 #include <iostream>
 #include <vector>
+#include <string>
+
+#define pic pair<int,char>
 
 using namespace std;
+
+pic parseCard(string card) {
+	char mark = card[0];
+	int num = card[1] - '0';
+	return pic(num, mark);
+}
+
+string margeCard(pic crad) {
+
+}
+
 
 int cnt = 0;
 void selectionSort(vector<int>& A, size_t N) {
@@ -24,9 +38,10 @@ void selectionSort(vector<int>& A, size_t N) {
 
 
 int main() {
-	size_t n;
+
+	/*size_t n;
 	cin >> n;
-	vector<int> A(n);
+	vector<string> A(n);
 	for (size_t i = 0; i < n; i++)
 	{
 		cin >> A[i];
@@ -37,5 +52,5 @@ int main() {
 		cout << A[i] << " ";
 	}
 	cout << A.back() << endl;
-	cout << cnt << endl;
+	cout << cnt << endl;*/
 }
