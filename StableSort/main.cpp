@@ -2,55 +2,76 @@
 #include <vector>
 #include <string>
 
-#define pic pair<int,char>
-
 using namespace std;
 
-pic parseCard(string card) {
-	char mark = card[0];
-	int num = card[1] - '0';
-	return pic(num, mark);
+
+void bubbleSort(vector<string>& A, size_t N) {
+	bool flag = true;
+	while (flag)
+	{
+		flag = false;
+		for (size_t i = N - 1; i > 0; i--)
+		{
+			if (A[i][1] < A[i - 1][1])
+			{
+				string tmp = A[i];
+				A[i] = A[i - 1];
+				A[i - 1] = tmp;
+				flag = true;
+			}
+		}
+	}
 }
 
-string margeCard(pic crad) {
-
-}
-
-
-int cnt = 0;
-void selectionSort(vector<int>& A, size_t N) {
+void selectionSort(vector<string>& A, size_t N) {
 	for (size_t i = 0; i < N; i++)
 	{
 		int minj = i;
 		for (size_t j = i; j < N; j++) {
-			if (A[j] < A[minj]) {
+			if (A[j][1] < A[minj][1]) {
 				minj = j;
 			}
 		}
 		if (minj != i) {
-			int tmp = A[i];
+			string tmp = A[i];
 			A[i] = A[minj];
 			A[minj] = tmp;
-			cnt++;
 		}
 	}
 }
 
 
 int main() {
+	
 
-	/*size_t n;
+	size_t n;
 	cin >> n;
 	vector<string> A(n);
 	for (size_t i = 0; i < n; i++)
 	{
 		cin >> A[i];
 	}
-	selectionSort(A, n);
+	vector<string> B = A;
+	bubbleSort(A, n);
+	selectionSort(B, n);
 	for (size_t i = 0; i < A.size() - 1; i++)
 	{
 		cout << A[i] << " ";
 	}
 	cout << A.back() << endl;
-	cout << cnt << endl;*/
+	cout << "Stable" << endl;
+	
+	for (size_t i = 0; i < B.size() - 1; i++)
+	{
+		cout << B[i] << " ";
+	}
+	cout << B.back() << endl;
+	for (size_t i = 0; i < n; i++)
+	{
+		if (A[i] != B[i]) {
+			cout << "Not stable" << endl;
+			return 0;
+		}
+	}
+	cout << "Stable" << endl;
 }
