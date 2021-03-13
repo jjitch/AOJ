@@ -27,6 +27,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BinarySearch", "BinarySearc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Queue", "Queue\Queue.vcxproj", "{09868BE8-73CB-4B7F-951C-3B3A753B193B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DoublyLinkedList", "DoublyLinkedList\DoublyLinkedList.vcxproj", "{4939FA36-EACF-4DF7-BCC1-9456BDA4DB9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -115,6 +117,14 @@ Global
 		{09868BE8-73CB-4B7F-951C-3B3A753B193B}.Release|x64.Build.0 = Release|x64
 		{09868BE8-73CB-4B7F-951C-3B3A753B193B}.Release|x86.ActiveCfg = Release|Win32
 		{09868BE8-73CB-4B7F-951C-3B3A753B193B}.Release|x86.Build.0 = Release|Win32
+		{4939FA36-EACF-4DF7-BCC1-9456BDA4DB9E}.Debug|x64.ActiveCfg = Debug|x64
+		{4939FA36-EACF-4DF7-BCC1-9456BDA4DB9E}.Debug|x64.Build.0 = Debug|x64
+		{4939FA36-EACF-4DF7-BCC1-9456BDA4DB9E}.Debug|x86.ActiveCfg = Debug|Win32
+		{4939FA36-EACF-4DF7-BCC1-9456BDA4DB9E}.Debug|x86.Build.0 = Debug|Win32
+		{4939FA36-EACF-4DF7-BCC1-9456BDA4DB9E}.Release|x64.ActiveCfg = Release|x64
+		{4939FA36-EACF-4DF7-BCC1-9456BDA4DB9E}.Release|x64.Build.0 = Release|x64
+		{4939FA36-EACF-4DF7-BCC1-9456BDA4DB9E}.Release|x86.ActiveCfg = Release|Win32
+		{4939FA36-EACF-4DF7-BCC1-9456BDA4DB9E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +140,7 @@ Global
 		{7301A1DD-7FA5-47CC-AE02-0EF17BEB1C81} = {CBFE12F4-909E-4941-971F-961C3D94E31B}
 		{4F81B777-5B99-4058-BA80-B5FC45FF50D1} = {CBFE12F4-909E-4941-971F-961C3D94E31B}
 		{09868BE8-73CB-4B7F-951C-3B3A753B193B} = {CBFE12F4-909E-4941-971F-961C3D94E31B}
+		{4939FA36-EACF-4DF7-BCC1-9456BDA4DB9E} = {CBFE12F4-909E-4941-971F-961C3D94E31B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3716907B-242C-4E4B-B492-FAE8A16012CE}
