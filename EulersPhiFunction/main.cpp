@@ -17,9 +17,10 @@ ll EPF(ll n)
 			n /= i;
 		}
 	}
+	if (n!=1) s.insert(n);
 	for (auto v : s)
 	{
-		ret += (v - 1);
+		ret *= (v - 1);
 		ret /= v;
 	}
 	return ret;
