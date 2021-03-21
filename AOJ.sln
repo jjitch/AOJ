@@ -47,6 +47,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtendedEuclidAlgorithm", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EulersPhiFunction", "EulersPhiFunction\EulersPhiFunction.vcxproj", "{3492197E-1938-4271-95D1-E1A755000CB2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdditionOfBigIntegers", "AdditionOfBigIntegers\AdditionOfBigIntegers.vcxproj", "{CD826D47-9F6A-447D-886C-0FEC52477F5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -199,6 +201,14 @@ Global
 		{3492197E-1938-4271-95D1-E1A755000CB2}.Release|x64.Build.0 = Release|x64
 		{3492197E-1938-4271-95D1-E1A755000CB2}.Release|x86.ActiveCfg = Release|Win32
 		{3492197E-1938-4271-95D1-E1A755000CB2}.Release|x86.Build.0 = Release|Win32
+		{CD826D47-9F6A-447D-886C-0FEC52477F5D}.Debug|x64.ActiveCfg = Debug|x64
+		{CD826D47-9F6A-447D-886C-0FEC52477F5D}.Debug|x64.Build.0 = Debug|x64
+		{CD826D47-9F6A-447D-886C-0FEC52477F5D}.Debug|x86.ActiveCfg = Debug|Win32
+		{CD826D47-9F6A-447D-886C-0FEC52477F5D}.Debug|x86.Build.0 = Debug|Win32
+		{CD826D47-9F6A-447D-886C-0FEC52477F5D}.Release|x64.ActiveCfg = Release|x64
+		{CD826D47-9F6A-447D-886C-0FEC52477F5D}.Release|x64.Build.0 = Release|x64
+		{CD826D47-9F6A-447D-886C-0FEC52477F5D}.Release|x86.ActiveCfg = Release|Win32
+		{CD826D47-9F6A-447D-886C-0FEC52477F5D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -222,6 +232,7 @@ Global
 		{65875C1C-5694-4B0A-9108-E7E9B61B6337} = {57437F21-9F56-42B3-B1AD-6F78B0120EF6}
 		{9A296E8E-4898-47F8-8E30-2CB44A6124BE} = {134AB01F-4C0C-40E8-9309-F1AB47B6A51F}
 		{3492197E-1938-4271-95D1-E1A755000CB2} = {134AB01F-4C0C-40E8-9309-F1AB47B6A51F}
+		{CD826D47-9F6A-447D-886C-0FEC52477F5D} = {134AB01F-4C0C-40E8-9309-F1AB47B6A51F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3716907B-242C-4E4B-B492-FAE8A16012CE}
