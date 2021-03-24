@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{8b153b84-a5a8-4ec6-9210-f23aa16cd9b7}</ProjectGuid>
+    <ProjectGuid>{d447a68b-f343-4c21-8008-349f75d1562f}</ProjectGuid>
     <RootNamespace>ComplexNumber</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -139,11 +139,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Complex.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClInclude Include="Complex.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Complex.hpp" />
+    <ClCompile Include="Complex.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
