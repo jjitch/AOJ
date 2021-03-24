@@ -7,10 +7,14 @@ private:
 	double image;
 public:
 	Complex(double re, double im);
+	double re() { return real; };
+	double im() { return image; };
+	double abs();
+	double arg();
 };
 
-Complex::Complex(double re, double im)
+inline Complex::Complex(double re, double im)
 {
 	this->real = re;
 	this->image = im;
-}
+};
