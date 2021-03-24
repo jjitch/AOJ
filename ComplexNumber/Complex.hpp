@@ -11,6 +11,16 @@ public:
 	double im() { return image; };
 	double abs();
 	double arg();
+	//todo
+	//operator/Š„‚èZ^‹¤–ğ
+	//ostream‚É—¬‚µ‚½‚¢
+	const Complex operator + (Complex& rhs) const;
+	const Complex operator - (Complex& rhs) const;
+	const Complex operator * (Complex& rhs) const;
+	Complex& operator+=(Complex& other){
+		this->real += other.re();
+		this->image += other.im();
+	}
 };
 
 inline Complex::Complex(double re, double im)
@@ -18,3 +28,4 @@ inline Complex::Complex(double re, double im)
 	this->real = re;
 	this->image = im;
 };
+
