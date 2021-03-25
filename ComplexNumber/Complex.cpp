@@ -1,5 +1,16 @@
 #include "Complex.hpp"
 
+Complex::Complex(double re, double im, bool type=0)
+{
+	real = re;
+	image = im;
+	if (type)
+	{
+		real *= cos(image);
+		image = re * sin(image);
+	}
+};
+
 
 double Complex::abs()
 {
@@ -9,6 +20,12 @@ double Complex::abs()
 double Complex::arg()
 {
 	return atan2(image, real);
+};
+
+Complex& Complex::operator = (Complex& rhs) {
+	real = rhs.re();
+	image = rhs.im();
+	return *this;
 };
 
 const Complex Complex::operator + (Complex& rhs) const
