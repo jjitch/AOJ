@@ -49,6 +49,16 @@ public:
 	{
 		return x * other.y - y * other.x;
 	}
+	Vec2& operator+=(const Vec2& other) {
+		x += other.x;
+		y += other.y;
+		return *this;
+	}
+	Vec2& operator-=(const Vec2& other) {
+		x -= other.x;
+		y -= other.y;
+		return *this;
+	}
 	friend std::ostream& operator<<(std::ostream& os, const Vec2& vec2)
 	{
 		std::cout << vec2.x << " " << vec2.y;
@@ -65,21 +75,16 @@ public:
 int main()
 {
 	using namespace std;
-	double x1, y1, x2, y2;
-	std::cin >> x1 >> y1 >> x2 >> y2;
-	Vec2<double> p1(x1, y1);
-	Vec2<double> p2 = Vec2<double>(x2, y2) - p1;
+	using V = Vec2<double>;
+	V v1, v2;
+	cin >> v1 >> v2;
+	v2 -= v1;
 	int q;
-	std::cin >> q;
-	std::vector<Vec2<double>> ans(q,Vec2<double>(0,0));
-	for (int i = 0; i < q; i++)
+	cin >> q;
+	V v;
+	while (cin >> v)
 	{
-		double x, y;
-		std::cin >> x >> y;
-		Vec2<double> p = Vec2<double>(x, y) - p1;
-		ans[i] = p1 + p2 * ((p * p2) / (p2 * p2));
-	}
-	for (int i = 0; i < q; i++) {
-		std::cout <<std::setprecision(18)<< ans[i] << std::endl;
+		v -= v1;
+		cout <<setprecision(18)<< v1 + ((v * v2) / (v2 * v2)) * v2 << endl;;
 	}
 }
