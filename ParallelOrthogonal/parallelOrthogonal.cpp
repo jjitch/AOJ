@@ -4,20 +4,29 @@
 #include <stdlib.h>
 #include <math.h>
 
-template<typename T>
 class Vec2
 {
-	T x;
-	T y;
+	double x;
+	double y;
 public:
 	Vec2() :x(0), y(0) {};
-	Vec2(T x, T y)
+	Vec2(double x, double y)
 	{
 		this->x = x;
 		this->y = y;
 	}
-	T getX() { return x; }
-	T getY() { return y; }
+	const double getX() { return x; }
+	const double getY() { return y; }
+	const double getAngle() { return atan(y / x); }
+	void rotate(const double& theta)
+	{
+		double tmpX = x * cos(theta) - y * sin(theta);
+		double tmpY = x * sin(theta) + y * cos(theta);
+		x = tmpX;
+		y = tmpY;
+	}
+	void flipX() { x *= -1; }
+	void flipY() { y *= -1; }
 	Vec2& operator=(const Vec2& other)
 	{
 		x = other.x;
@@ -33,7 +42,7 @@ public:
 		return Vec2(x - other.x, y - other.y);
 	}
 	// Inner product
-	const T operator * (const Vec2& other)
+	const double operator * (const Vec2& other)
 	{
 		return x * other.x + y * other.y;
 	}
@@ -46,16 +55,18 @@ public:
 		return Vec2(vec2.x * a, vec2.y * a);
 	}
 	// Outer product
-	const T operator ^ (const Vec2& other)
+	const double operator / (const Vec2& other)
 	{
 		return x * other.y - y * other.x;
 	}
-	Vec2& operator+=(const Vec2& other) {
+	Vec2& operator+=(const Vec2& other)
+	{
 		x += other.x;
 		y += other.y;
 		return *this;
 	}
-	Vec2& operator-=(const Vec2& other) {
+	Vec2& operator-=(const Vec2& other)
+	{
 		x -= other.x;
 		y -= other.y;
 		return *this;
@@ -72,20 +83,28 @@ public:
 	}
 };
 
-
 int main()
 {
 	using namespace std;
-	using V = Vec2<double>;
-	V v1, v2;
-	cin >> v1 >> v2;
-	v2 -= v1;
 	int q;
 	cin >> q;
-	V v;
-	while (cin >> v)
+	Vec2 v0, v1, v2, v3;
+	Vec2 L1, L2;
+	while (cin >> v0 >> v1 >> v2 >> v3)
 	{
-		v -= v1;
-		cout <<setprecision(18)<< v1 + ((v * v2) / (v2 * v2)) * v2 << endl;;
+		L1 = v1 - v0;
+		L2 = v3 - v2;
+		if (L1 / L2 == 0)
+		{
+			cout << 2 << endl;
+		}
+		else if (L1 * L2 == 0)
+		{
+			cout << 1 << endl;
+		}
+		else
+		{
+			cout << 0 << endl;
+		}
 	}
 }
