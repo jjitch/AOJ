@@ -1,38 +1,104 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
+#include <stdlib.h>
+#include <math.h>
 
-#define rep(i,a,n) for (int i=a;i<(n);i++)
-
-using namespace std;
-using pdd = pair<double, double>;
-
-template<class T>
-pair<T, T> operator + (pair<T, T> a, pair<T, T> b) {
-	return pair<T, T>(a.first + b.first, a.second + b.second);
+class Vec2
+{
+	double x;
+	double y;
+public:
+	Vec2() :x(0), y(0) {};
+	Vec2(double x, double y)
+	{
+		this->x = x;
+		this->y = y;
+	}
+	const double getX() { return x; }
+	const double getY() { return y; }
+	const double getAngle() { return atan(y / x); }
+	void rotate(const double& theta)
+	{
+		double tmpX = x * cos(theta) - y * sin(theta);
+		double tmpY = x * sin(theta) + y * cos(theta);
+		x = tmpX;
+		y = tmpY;
+	}
+	void flipX() { x *= -1; }
+	void flipY() { y *= -1; }
+	Vec2& operator=(const Vec2& other)
+	{
+		x = other.x;
+		y = other.y;
+		return *this;
+	}
+	const Vec2 operator + (const Vec2& other) const
+	{
+		return Vec2(x + other.x, y + other.y);
+	}
+	const Vec2 operator - (const Vec2& other) const
+	{
+		return Vec2(x - other.x, y - other.y);
+	}
+	// Inner product
+	const double operator * (const Vec2& other) const
+	{
+		return x * other.x + y * other.y;
+	}
+	template<class U> const Vec2 operator * (const U& t) const
+	{
+		return Vec2(x * t, y * t);
+	}
+	template<class U> friend const Vec2 operator * (const U& a, const Vec2& vec2)
+	{
+		return Vec2(vec2.x * a, vec2.y * a);
+	}
+	// Outer product
+	const double operator / (const Vec2& other) const
+	{
+		return x * other.y - y * other.x;
+	}
+	Vec2& operator+=(const Vec2& other)
+	{
+		x += other.x;
+		y += other.y;
+		return *this;
+	}
+	Vec2& operator-=(const Vec2& other)
+	{
+		x -= other.x;
+		y -= other.y;
+		return *this;
+	}
+	friend std::ostream& operator<<(std::ostream& os, const Vec2& vec2)
+	{
+		std::cout << vec2.x << " " << vec2.y;
+		return os;
+	}
+	friend std::istream& operator>>(std::istream& is, Vec2& vec2)
+	{
+		std::cin >> vec2.x >> vec2.y;
+		return is;
+	}
 };
-
-template<class T>
-pair<T, T> operator - (pair<T, T> a, pair<T, T> b) {
-	return pair<T, T>(a.first - b.first, a.second - b.second);
-};
-
-template<class T>
-T operator ^ (pair<T, T> a, pair<T, T> b) {
-	return a.first * b.second - a.second * b.first;
-}
 
 int main() {
+	using namespace std;
 	int n;
 	cin >> n;
-	vector<pdd> p(n, pdd());
-	rep(i, 0, n) {
-		cin >> p[i].first >> p[i].second;
+	vector<Vec2> v(n-1, Vec2());
+	Vec2 begin;
+	cin >> begin;
+	for (size_t i = 0; i < n-1; i++)
+	{
+		cin >> v[i];
+		v[i] -= begin;
 	}
-	pdd head = p[0];
 	double ans = 0;
-	rep(i, 1, n - 1) {
-		ans += (p[i] - head) ^ (p[i + 1] - head);
+	for (size_t i = 0; i < n-2; i++)
+	{
+		ans += v[i] / v[i + 1];
 	}
 	cout << fixed << setprecision(1) << ans / 2. << endl;
 }
