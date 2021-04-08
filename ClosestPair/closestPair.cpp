@@ -106,57 +106,29 @@ public:
 
 };
 
-enum class CCW
-{
-	COUNTER_CLOCKWISE,
-	CLOCKWISE,
-	ONLINE_BACK,
-	ONLINE_FRONT,
-	ON_SEGMENT
-};
+const double INF = 10000.;
 
-CCW ccw(const Vec2& start, const Vec2& end, const Vec2& subject)
+double closestPair(std::vector<Vec2>::iterator a, size_t n)
 {
-	if ((end - start) / (subject - start) > 0)return CCW::COUNTER_CLOCKWISE;
-	if ((end - start) / (subject - start) < 0)return CCW::CLOCKWISE;
-	if ((end - start) * (subject - start) < 0)return CCW::ONLINE_BACK;
-	if ((end - start) * (end - start) < (subject - start) * (subject - start))return CCW::ONLINE_FRONT;
-	return CCW::ON_SEGMENT;
-}
+	if (n <= 1) return INF;
+	size_t m = n / 2;
+	double x = a[m].getX();
+	double d = std::min(closestPair(a, m), closestPair(a + m, n - m));
+	std::inplace_merge(a, a + m, a + n, [](const Vec2& a, const Vec2& b) {return a.getY() < b.getY(); });
 
-enum class ISINSIDE
-{
-	INSIDE,
-	OUTSIDE,
-	ON_SEGMENT
-};
-
-ISINSIDE isInside(const std::vector<Vec2>& vertex, const std::size_t& n, const Vec2& query)
-{
-	int windingNumber = 0;
-	for (std::size_t i = 0; i < n; i++)
+	std::vector<Vec2> b;
+	for (size_t i = 0; i < n; i++)
 	{
-		CCW position;
-		double upper;
-		double lower;
-		if (i == n - 1)
+		if (std::abs(a[i].getX() - x) >= d) continue;
+		for (size_t j = 0; j < b.size(); j++)
 		{
-			position = ccw(vertex[n - 1], vertex[0], query);
-			upper = std::max(vertex[n - 1].getY(), vertex[0].getY());
-			lower = std::min(vertex[n - 1].getY(), vertex[0].getY());
+			Vec2 v = a[i] - b[b.size() - 1 - j];
+			if (std::abs(v.getY()) >= d) break;
+			d = std::sqrt(v * v);
 		}
-		else
-		{
-			position = ccw(vertex[i], vertex[i + 1], query);
-			upper = std::max(vertex[i].getY(), vertex[i + 1].getY());
-			lower = std::min(vertex[i].getY(), vertex[i + 1].getY());
-		}
-		if (position == CCW::ON_SEGMENT) return ISINSIDE::ON_SEGMENT;
-		if (position == CCW::COUNTER_CLOCKWISE && lower <= query.getY() && query.getY() < upper) windingNumber++;
-		if (position == CCW::CLOCKWISE && lower <= query.getY() && query.getY() < upper) windingNumber--;
+		b.push_back(a[i]);
 	}
-	if (windingNumber == 0) return ISINSIDE::OUTSIDE;
-	else return ISINSIDE::INSIDE;
+	return d;
 }
 
 int main()
@@ -164,26 +136,9 @@ int main()
 	using namespace std;
 	size_t n;
 	cin >> n;
-	vector<Vec2> vertex(n);
-	for (size_t i = 0; i < n; i++) cin >> vertex[i];
-	size_t q;
-	cin >> q;
-	Vec2 query;
-	while (cin >> query)
-	{
-		switch (isInside(vertex, n, query))
-		{
-		case ISINSIDE::INSIDE:
-			cout << 2 << endl;
-			break;
-		case ISINSIDE::ON_SEGMENT:
-			cout << 1 << endl;
-			break;
-		case ISINSIDE::OUTSIDE:
-			cout << 0 << endl;
-			break;
-		default:
-			break;
-		}
-	}
+	vector<Vec2> vv(n);
+	for (size_t i = 0; i < n; i++) cin >> vv[i];
+	sort(vv.begin(), vv.end());
+	double ans = closestPair(vv.begin(), n);
+	cout << setprecision(10) << fixed << ans << endl;
 }

@@ -63,6 +63,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IsConvex", "IsConvex\IsConv
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PolygonPointContainment", "PolygonPointContainment\PolygonPointContainment.vcxproj", "{7B635906-08B3-47F2-AF85-73A0D0BCCF81}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClosestPair", "ClosestPair\ClosestPair.vcxproj", "{9A757965-A69B-4830-AA95-B5D92AD293DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -279,6 +281,14 @@ Global
 		{7B635906-08B3-47F2-AF85-73A0D0BCCF81}.Release|x64.Build.0 = Release|x64
 		{7B635906-08B3-47F2-AF85-73A0D0BCCF81}.Release|x86.ActiveCfg = Release|Win32
 		{7B635906-08B3-47F2-AF85-73A0D0BCCF81}.Release|x86.Build.0 = Release|Win32
+		{9A757965-A69B-4830-AA95-B5D92AD293DC}.Debug|x64.ActiveCfg = Debug|x64
+		{9A757965-A69B-4830-AA95-B5D92AD293DC}.Debug|x64.Build.0 = Debug|x64
+		{9A757965-A69B-4830-AA95-B5D92AD293DC}.Debug|x86.ActiveCfg = Debug|Win32
+		{9A757965-A69B-4830-AA95-B5D92AD293DC}.Debug|x86.Build.0 = Debug|Win32
+		{9A757965-A69B-4830-AA95-B5D92AD293DC}.Release|x64.ActiveCfg = Release|x64
+		{9A757965-A69B-4830-AA95-B5D92AD293DC}.Release|x64.Build.0 = Release|x64
+		{9A757965-A69B-4830-AA95-B5D92AD293DC}.Release|x86.ActiveCfg = Release|Win32
+		{9A757965-A69B-4830-AA95-B5D92AD293DC}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -310,6 +320,7 @@ Global
 		{5E16E6D1-9832-40DE-9EBE-70700ABA0433} = {351F3353-8629-4D6D-A78C-C6418F47A6A2}
 		{9C29BD32-6B55-41C6-8052-0DBBC15B9E38} = {351F3353-8629-4D6D-A78C-C6418F47A6A2}
 		{7B635906-08B3-47F2-AF85-73A0D0BCCF81} = {351F3353-8629-4D6D-A78C-C6418F47A6A2}
+		{9A757965-A69B-4830-AA95-B5D92AD293DC} = {351F3353-8629-4D6D-A78C-C6418F47A6A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3716907B-242C-4E4B-B492-FAE8A16012CE}
