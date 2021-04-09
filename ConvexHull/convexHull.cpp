@@ -127,21 +127,20 @@ CCW ccw(const Vec2& start, const Vec2& end, const Vec2& subject)
 int main()
 {
 	using namespace std;
-	int n;
+	size_t n;
 	cin >> n;
 	vector<Vec2> points(n);
-	for (int i = 0; i < n; i++) cin >> points[i];
+	for (size_t i = 0; i < n; i++) cin >> points[i];
+
 	sort(points.begin(), points.end(), [](const Vec2& a, const Vec2& b) {return a.getY() < b.getY() || (!(b.getY() < a.getY()) && a.getX() < b.getX()); });
 
 	vector<Vec2> right;
-	right.push_back(points[0]);
-	right.push_back(points[1]);
-	for (int i = 2; i < n; i++)
-	{
-		Vec2 next = points[i];
+	right.push_back(*points.cbegin());
+	right.push_back(*(points.cbegin() + 1));
+	for_each(points.cbegin() + 2, points.cend(), [&](const Vec2& next) {
 		while (right.size() > 1)
 		{
-			if (ccw(right[right.size() - 2], right[right.size() - 1], next) == CCW::CLOCKWISE)
+			if (ccw(*(right.cend() - 2), right.back(), next) == CCW::CLOCKWISE)
 			{
 				right.pop_back();
 				continue;
@@ -149,16 +148,15 @@ int main()
 			break;
 		}
 		right.push_back(next);
-	}
+			 });
+
 	vector<Vec2> left;
-	left.push_back(points[n - 1]);
-	left.push_back(points[n - 2]);
-	for (int i = n - 3; i >= 0; i--)
-	{
-		Vec2 next = points[i];
+	left.push_back(points.back());
+	left.push_back(*(points.cend() - 2));
+	for_each(points.crbegin() + 2, points.crend(), [&](const Vec2& next) {
 		while (left.size() > 1)
 		{
-			if (ccw(left[left.size() - 2], left[left.size() - 1], next) == CCW::CLOCKWISE)
+			if (ccw(*(left.cend() - 2), left.back(), next) == CCW::CLOCKWISE)
 			{
 				left.pop_back();
 				continue;
@@ -166,8 +164,9 @@ int main()
 			break;
 		}
 		left.push_back(next);
-	}
+			 });
+
 	cout << right.size() + left.size() - 2 << endl;
-	for_each(right.begin(), right.end()-1, [](const Vec2& v) {cout << v << endl; });
-	for_each(left.begin(), left.end()-1, [](const Vec2& v) {cout << v << endl; });
+	for_each(right.begin(), right.end() - 1, [](const Vec2& v) {cout << v << endl; });
+	for_each(left.begin(), left.end() - 1, [](const Vec2& v) {cout << v << endl; });
 }
