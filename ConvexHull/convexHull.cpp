@@ -169,5 +169,5 @@ int main()
 	}
 	cout << right.size() + left.size() - 2 << endl;
 	for_each(right.begin(), right.end()-1, [](const Vec2& v) {cout << v << endl; });
-	for_each(left.rbegin()+1, left.rend(), [](const Vec2& v) {cout << v << endl; });
+	for_each(left.begin(), left.end()-1, [](const Vec2& v) {cout << v << endl; });
 }
