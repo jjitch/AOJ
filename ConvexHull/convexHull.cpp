@@ -106,6 +106,8 @@ public:
 
 };
 
+bool compareY(const Vec2& a, const Vec2& b) { return a.getY() < b.getY() || (!(b.getY() < a.getY()) && a.getX() < b.getX()); };
+
 enum class CCW
 {
 	COUNTER_CLOCKWISE,
@@ -124,6 +126,20 @@ CCW ccw(const Vec2& start, const Vec2& end, const Vec2& subject)
 	return CCW::ON_SEGMENT;
 }
 
+void updateContour(const Vec2& inspect, std::vector<Vec2>& contour)
+{
+	while (contour.size() > 1)
+	{
+		if (ccw(*(contour.cend() - 2), contour.back(), inspect) == CCW::CLOCKWISE)
+		{
+			contour.pop_back();
+			continue;
+		}
+		break;
+	}
+	contour.push_back(inspect);
+}
+
 int main()
 {
 	using namespace std;
@@ -132,41 +148,15 @@ int main()
 	vector<Vec2> points(n);
 	for (size_t i = 0; i < n; i++) cin >> points[i];
 
-	sort(points.begin(), points.end(), [](const Vec2& a, const Vec2& b) {return a.getY() < b.getY() || (!(b.getY() < a.getY()) && a.getX() < b.getX()); });
+	sort(points.begin(), points.end(), compareY);
 
-	vector<Vec2> right;
-	right.push_back(*points.cbegin());
-	right.push_back(*(points.cbegin() + 1));
-	for_each(points.cbegin() + 2, points.cend(), [&](const Vec2& next) {
-		while (right.size() > 1)
-		{
-			if (ccw(*(right.cend() - 2), right.back(), next) == CCW::CLOCKWISE)
-			{
-				right.pop_back();
-				continue;
-			}
-			break;
-		}
-		right.push_back(next);
-			 });
+	vector<Vec2> rightContour;
+	for_each(points.cbegin(), points.cend(), [&](const Vec2& inspect) {updateContour(inspect, rightContour); });
 
-	vector<Vec2> left;
-	left.push_back(points.back());
-	left.push_back(*(points.cend() - 2));
-	for_each(points.crbegin() + 2, points.crend(), [&](const Vec2& next) {
-		while (left.size() > 1)
-		{
-			if (ccw(*(left.cend() - 2), left.back(), next) == CCW::CLOCKWISE)
-			{
-				left.pop_back();
-				continue;
-			}
-			break;
-		}
-		left.push_back(next);
-			 });
+	vector<Vec2> leftContour;
+	for_each(points.crbegin(), points.crend(), [&](const Vec2& inspect) {updateContour(inspect, leftContour); });
 
-	cout << right.size() + left.size() - 2 << endl;
-	for_each(right.begin(), right.end() - 1, [](const Vec2& v) {cout << v << endl; });
-	for_each(left.begin(), left.end() - 1, [](const Vec2& v) {cout << v << endl; });
+	cout << rightContour.size() + leftContour.size() - 2 << endl;
+	for_each(rightContour.cbegin(), rightContour.cend() - 1, [](const Vec2& v) {cout << v << endl; });
+	for_each(leftContour.cbegin(), leftContour.cend() - 1, [](const Vec2& v) {cout << v << endl; });
 }
