@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <algorithm>
+#include <map>
 
 class Vec2
 {
@@ -148,23 +149,11 @@ int main()
 	Vec2 c1, c2;
 	double r1, r2;
 	cin >> c1 >> r1 >> c2 >> r2;
-	switch (poc(c1, r1, c2, r2))
-	{
-	case PAIR_OF_CIRCLES::DONT_CROSS:
-		cout << 4 << endl;
-		break;
-	case PAIR_OF_CIRCLES::CIRCUMSCRIBED:
-		cout << 3 << endl;
-		break;
-	case PAIR_OF_CIRCLES::INTERSECT:
-		cout << 2 << endl;
-		break;
-	case PAIR_OF_CIRCLES::INSCRIBED:
-		cout << 1 << endl;
-		break;
-	case PAIR_OF_CIRCLES::INCLUDED:
-		cout << 0 << endl;
-	default:
-		break;
-	}
+	map<PAIR_OF_CIRCLES, int> stateMap = {
+		{ PAIR_OF_CIRCLES::DONT_CROSS,    4 },
+		{ PAIR_OF_CIRCLES::CIRCUMSCRIBED, 3 },
+		{ PAIR_OF_CIRCLES::INTERSECT,     2 },
+		{ PAIR_OF_CIRCLES::INSCRIBED,     1 },
+		{ PAIR_OF_CIRCLES::INCLUDED,      0 } };
+	cout << stateMap[poc(c1, r1, c2, r2)] << endl;
 }
