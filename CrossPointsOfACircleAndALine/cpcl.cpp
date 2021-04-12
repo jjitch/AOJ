@@ -113,20 +113,74 @@ class Line
 	Vec2 p1;
 	Vec2 p2;
 public:
+	Line() :p1(Vec2()), p2(Vec2()) {}
 	Line(Vec2 _p1, Vec2 _p2) :p1(_p1), p2(_p2) {}
 
+	Vec2 normalizedDir() const { return (p2 - p1) / Vec2::norm(p2 - p1); }
+	Vec2 normalizedNor() const { return Vec2::rotate90(p2 - p1) / Vec2::norm(p2 - p1); }
+
+	// The distance from line to point. When the point is located on the left hand side, the sign is positive.
+	double toPoint(const Vec2& v) const
+	{
+		return Vec2::cross(p2 - p1, v - p1) / Vec2::norm(p2 - p1);
+	}
 	static Vec2 intersect(const Line& a, const Line& b)
 	{
 		Vec2 dirA = a.p1 - a.p2;
 		Vec2 dirB = b.p1 - b.p2;
-		/*dirA /= Vec2::norm(dirA);
-		dirB /= Vec2::norm(dirB);*/
-		dirA /= 2048.;
-		dirB /= 2048.;
 		const double crossA = Vec2::cross(dirA, a.p1);
 		const double crossB = Vec2::cross(dirB, b.p1);
 		const double x = (dirB.getX() * crossA - dirA.getX() * crossB) / Vec2::cross(dirA, dirB);
 		const double y = (dirB.getY() * crossA - dirA.getY() * crossB) / Vec2::cross(dirA, dirB);
 		return Vec2(x, y);
 	}
+
+	friend std::istream& operator >> (std::istream& is, Line& line)
+	{
+		std::cin >> line.p1 >> line.p2;
+		return is;
+	}
+	friend std::ostream& operator << (std::ostream& os, const Line& line)
+	{
+		std::cout << line.p1 << " " << line.p2;
+		return os;
+	}
 };
+
+class Circle
+{
+	Vec2 center;
+	double radius;
+public:
+	Circle() :center(Vec2()), radius(0) {}
+	Circle(Vec2 _c, double _r) :center(_c), radius(_r) {}
+	std::pair<Vec2, Vec2> crossPointsToLine(const Line& line)
+	{
+		const double distFromPoint = - line.toPoint(center);
+		const Vec2 nor = line.normalizedNor();
+		const Vec2 dir = line.normalizedDir();
+		const Vec2 cross1 = center + distFromPoint * nor + sqrt(radius * radius - distFromPoint * distFromPoint) * dir;
+		const Vec2 cross2 = center + distFromPoint * nor - sqrt(radius * radius - distFromPoint * distFromPoint) * dir;
+		return { std::min(cross1,cross2), std::max(cross1,cross2) };
+	}
+	friend std::istream& operator >> (std::istream& is, Circle& circle)
+	{
+		std::cin >> circle.center >> circle.radius;
+		return is;
+	}
+};
+
+int main()
+{
+	using namespace std;
+	Circle circle;
+	cin >> circle;
+	size_t q;
+	cin >> q;
+	Line line;
+	while (cin >> line)
+	{
+		pair<Vec2, Vec2> crossPoints = circle.crossPointsToLine(line);
+		cout << setprecision(10) << fixed << crossPoints.first << " " << crossPoints.second << endl;
+	}
+}
