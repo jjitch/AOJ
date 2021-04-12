@@ -113,8 +113,13 @@ class Line
 	Vec2 p1;
 	Vec2 p2;
 public:
+	Line() :p1(Vec2()), p2(Vec2()) {}
 	Line(Vec2 _p1, Vec2 _p2) :p1(_p1), p2(_p2) {}
 
+	double distanceTo(const Vec2& v)
+	{
+		return abs(Vec2::cross(p2 - p1, v - p1)) / Vec2::norm(p2 - p1);
+	}
 	static Vec2 intersect(const Line& a, const Line& b)
 	{
 		Vec2 dirA = a.p1 - a.p2;
@@ -125,32 +130,45 @@ public:
 		const double y = (dirB.getY() * crossA - dirA.getY() * crossB) / Vec2::cross(dirA, dirB);
 		return Vec2(x, y);
 	}
+
+	friend std::istream& operator >> (std::istream& is, Line& line)
+	{
+		std::cin >> line.p1 >> line.p2;
+		return is;
+	}
 };
 
 double diameterOfConvexPolygon(const std::vector<Vec2>& poly, const std::size_t& n)
 {
 	double diameter = 0.;
-	std::size_t farest;
+	std::size_t antipodal=0;
+	Line initLine(poly[0], poly[1]);
 	for (size_t i = 0; i < n; i++)
 	{
-		double distance = Vec2::norm(poly[0] - poly[i]);
+		double distance = initLine.distanceTo(poly[i]);
 		if (distance > diameter)
 		{
 			diameter = distance;
-			farest = i;
+			antipodal = i;
 		}
 	}
-	std::pair<Vec2, Vec2> antipodal = { poly[0], poly[farest] };
 	size_t i = 0;
-	size_t j = farest;
+	size_t j = antipodal;
 	do
 	{
-		j %= n;
-		if (Vec2::cross(poly[i + 1] - poly[i], poly[(j + 1) % n] - poly[j])<0)
+		if (Vec2::cross(poly[(i + 1) % n] - poly[i], poly[(j + 1) % n] - poly[j])<0)
 		{
-
+			i++;
+			i %= n;
+			diameter = std::max(diameter, Vec2::norm(poly[i] - poly[j]));
 		}
-	} while (!(j == 0 && i == farest));
+		else
+		{
+			j++;
+			j %= n;
+			diameter = std::max(diameter, Vec2::norm(poly[i] - poly[j]));
+		}
+	} while (!(j == 0 && i == antipodal));
 	return diameter;
 }
 
