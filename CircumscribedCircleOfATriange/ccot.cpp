@@ -119,10 +119,6 @@ public:
 	{
 		Vec2 dirA = a.p1 - a.p2;
 		Vec2 dirB = b.p1 - b.p2;
-		/*dirA /= Vec2::norm(dirA);
-		dirB /= Vec2::norm(dirB);*/
-		dirA /= 2048.;
-		dirB /= 2048.;
 		const double crossA = Vec2::cross(dirA, a.p1);
 		const double crossB = Vec2::cross(dirB, b.p1);
 		const double x = (dirB.getX() * crossA - dirA.getX() * crossB) / Vec2::cross(dirA, dirB);
