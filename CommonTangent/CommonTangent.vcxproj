@@ -24,6 +24,7 @@
     <ProjectGuid>{ab830e3e-39bd-414f-a3e9-9f5d4dcf6ed5}</ProjectGuid>
     <RootNamespace>CommonTangent</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>CommonTangent</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
