@@ -131,26 +131,18 @@ enum class ISINSIDE
 	ON_SEGMENT
 };
 
-ISINSIDE isInside(const std::vector<Vec2>& vertex, const std::size_t& n, const Vec2& query)
+ISINSIDE isInside(const std::vector<Vec2>& poly, const Vec2& query)
 {
 	int windingNumber = 0;
+	std::size_t n = poly.size();
 	for (std::size_t i = 0; i < n; i++)
 	{
 		CCW position;
 		double upper;
 		double lower;
-		if (i == n - 1)
-		{
-			position = ccw(vertex[n - 1], vertex[0], query);
-			upper = std::max(vertex[n - 1].getY(), vertex[0].getY());
-			lower = std::min(vertex[n - 1].getY(), vertex[0].getY());
-		}
-		else
-		{
-			position = ccw(vertex[i], vertex[i + 1], query);
-			upper = std::max(vertex[i].getY(), vertex[i + 1].getY());
-			lower = std::min(vertex[i].getY(), vertex[i + 1].getY());
-		}
+		position = ccw(poly[i], poly[(i + 1)%n], query);
+		upper = std::max(poly[i].getY(), poly[(i + 1)%n].getY());
+		lower = std::min(poly[i].getY(), poly[(i + 1)%n].getY());
 		if (position == CCW::ON_SEGMENT) return ISINSIDE::ON_SEGMENT;
 		if (position == CCW::COUNTER_CLOCKWISE && lower <= query.getY() && query.getY() < upper) windingNumber++;
 		if (position == CCW::CLOCKWISE && lower <= query.getY() && query.getY() < upper) windingNumber--;
@@ -171,7 +163,7 @@ int main()
 	Vec2 query;
 	while (cin >> query)
 	{
-		switch (isInside(vertex, n, query))
+		switch (isInside(vertex, query))
 		{
 		case ISINSIDE::INSIDE:
 			cout << 2 << endl;
