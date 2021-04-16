@@ -175,8 +175,7 @@ public:
 };
 
 /*
-Indicate the position of target point against the directed segment.
-Segment includes initial point but not terminal point.
+ü•ª‚Æ“_‚ğ—^‚¦‚½‚Æ‚«‚ÉˆÊ’uŠÖŒW‚ğ•Ô‚·
 */
 enum class CCW
 {
@@ -299,31 +298,6 @@ double splitCircle(const Circle& cir, const Segment& seg)
 	return res;
 }
 
-/*Cut the convex by given line. And then return the trimed convex on the left hand side.*/
-std::vector<Vec2> convexCut(const std::vector<Vec2>& poly, const Line& line)
-{
-	std::vector<Vec2> res;
-	std::size_t n = poly.size();
-	for (size_t i = 0; i < n; i++)
-	{
-		double before = Vec2::cross(line.getP2() - line.getP1(), poly[i] - line.getP1());
-		double after = Vec2::cross(line.getP2() - line.getP1(), poly[(i + 1) % n] - line.getP1());
-		if (before >= 0)
-		{
-			res.push_back(poly[i]);
-			if (after < 0)
-			{
-				res.push_back(crossPointLines(Line(poly[(i + 1) % n], poly[i]), line));
-			}
-		}
-		else if (after > 0)
-		{
-			res.push_back(crossPointLines(Line(poly[(i + 1) % n], poly[i]), line));
-		}
-	}
-	return res;
-}
-
 std::vector<Vec2> intersectionPoints(const Circle& cir, const Line& line)
 {
 	const double distFromPoint = -lineToPoint(line, cir.getCenter());
@@ -367,67 +341,17 @@ std::vector<Vec2> intersectionPoints(const Circle& cirA, const Circle& cirB)
 	return intersectionPoints(cirA, bisection);
 }
 
-std::vector<Vec2> tangentToPoint(const Circle& cir, const Vec2& point)
-{
-	Circle alongCenterPoint((cir.getCenter() + point) / 2., Vec2::norm(cir.getCenter() - point) / 2.);
-	return intersectionPoints(cir, alongCenterPoint);
-}
-
-std::vector<Vec2> commonTangent(const Circle& cirA, const Circle& cirB)
-{
-	std::vector<Vec2> res;
-	std::vector<Vec2> tangents;
-	const Vec2& cA = cirA.getCenter();
-	const Vec2& cB = cirB.getCenter();
-	const double& rA = cirA.getRadius();
-	const double& rB = cirB.getRadius();
-	switch (POC(cirA, cirB))
-	{
-	case PAIR_OF_CIRCLES::NOT_CONTACT: {
-		tangents = tangentToPoint(cirA, (rB * cA + rA * cB) / (rA + rB));
-		res.push_back(tangents[0]);
-		res.push_back(tangents[1]);
-		if (rA != rB) { tangents = tangentToPoint(cirA, (-rB * cA + rA * cB) / (rA - rB)); }
-		else { tangents = intersectionPoints(cirA, Line(cA, Vec2::rotate90(cB - cA) + cA)); }
-		res.push_back(tangents[0]);
-		res.push_back(tangents[1]);
-		break;
-	}
-	case PAIR_OF_CIRCLES::CIRCUMSCRIBED: {
-		tangents = tangentToPoint(cirA, (rB * cA + rA * cB) / (rA + rB));
-		res.push_back(tangents[0]);
-		if (rA != rB) { tangents = tangentToPoint(cirA, (-rB * cA + rA * cB) / (rA - rB)); }
-		else { tangents = intersectionPoints(cirA, Line(cA, Vec2::rotate90(cB - cA) + cA)); }
-		res.push_back(tangents[0]);
-		res.push_back(tangents[1]);
-		break;
-	}
-	case PAIR_OF_CIRCLES::INTERSECT: {
-		if (rA != rB) { tangents = tangentToPoint(cirA, (-rB * cA + rA * cB) / (rA - rB)); }
-		else { tangents = intersectionPoints(cirA, Line(cA, Vec2::rotate90(cB - cA) + cA)); }
-		res.push_back(tangents[0]);
-		res.push_back(tangents[1]);
-		break;
-	}
-	case PAIR_OF_CIRCLES::INSCRIBED: {
-		tangents = intersectionPoints(cirA, cirB);
-		res.push_back(tangents[0]);
-		break;
-	}
-	case PAIR_OF_CIRCLES::INCLUDED: { break; }
-	default: { break; }
-	}
-	return res;
-}
-
 double intersectionArea(const Circle& cir, const std::vector<Vec2> poly)
 {
-	double res = 0;
-	std::vector<std::vector<Vec2>> intersections;
-	std::vector<Vec2> partial;
+	double res = 0; // •Ô‚è’l‚ÌŠi”[•Ï”
+	std::vector<std::vector<Vec2>> intersections; // ‰~‚É‚æ‚Á‚ÄØ‚èæ‚ç‚ê‚½‘½ŠpŒ`‚Ì•ÓW‡‚ğŠi”[‚·‚é
+	std::vector<Vec2> partial; // •”•ª•ÓW‡
 	const std::size_t n = poly.size();
 	Vec2 prev;
 	Vec2 next;
+
+	// ‘½ŠpŒ`‚ğ„‰ñ‚µ‚È‚ª‚çA‰~“à‚Ìn“_‚Æ‰~‚ÌŒğ“_‚ğ•”•ª•ÓW‡‚ÉŠi”[‚µ‚Ä‚¢‚­
+	// I“_‚ª‰~ŠO‚É‚ ‚èA•”•ª•Ó‚ª2‚ÂˆÈã‚ ‚é‚È‚çintersections‚ÉŠi”[‚µApartial‚Íclear‚·‚é
 	for (std::size_t i = 0; i < n; i++)
 	{
 		prev = poly[i];
@@ -442,7 +366,7 @@ double intersectionArea(const Circle& cir, const std::vector<Vec2> poly)
 			partial.clear();
 		}
 	}
-	//if (partial.size() > 1) intersections.push_back(partial);
+	// ‘½ŠpŒ`‚Ìæ“ª‚Ì“_‚ª‰~“à‚Ìê‡Aintersections‚Ì––”ö‚Ææ“ª‚Å•”•ª•Ó‚Æ‚È‚é‚Ì‚Åƒ}[ƒW‚·‚é
 	if (Vec2::norm(poly.front() - cir.getCenter()) <= cir.getRadius())
 	{
 		intersections.push_back(partial);
@@ -452,7 +376,7 @@ double intersectionArea(const Circle& cir, const std::vector<Vec2> poly)
 		intersections.front() = back;
 		intersections.pop_back();
 	}
-	// 
+	// ‘½ŠpŒ`‚Æ‰~‚ªŒğ“_‚ğ‚½‚È‚¢ê‡‚Ìˆ—
 	if (intersections.size() == 0)
 	{
 		if (Vec2::norm(poly.front() - cir.getCenter()) <= cir.getRadius()) return polygonArea(poly);
@@ -463,16 +387,17 @@ double intersectionArea(const Circle& cir, const std::vector<Vec2> poly)
 		}
 	}
 
+	// ‚·‚×‚Ä‚Ì•”•ª•ÓW‡‚É‘Î‚µ‚ÄA•”•ª•Ó‚Ì¶‘¤‚Ì—Ìˆæ‚ğres‚É‘«‚µ‚Ä‚¢‚­B
 	std::for_each(intersections.cbegin(), intersections.cend(), [&](const std::vector<Vec2> fragment) {
 		if (fragment.size() > 1)
 		{
 			res += polygonArea(fragment);
 			res += splitCircle(cir, { fragment.front(), fragment.back() });
 		}});
+	// —]•ª‚É‘«‚³‚ê‚Ä‚¢‚é—Ìˆæ‚ğˆø‚­
 	res = fmod(res, cir.getRadius() * cir.getRadius() * M_PI);
 	return res;
 }
-
 
 int main()
 {
