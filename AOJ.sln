@@ -91,6 +91,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IntersectionOfACircleAndAPo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AreaOfIntersectionBetweenTwoCircles", "AreaOfIntersectionBetweenTwoCircles\AreaOfIntersectionBetweenTwoCircles.vcxproj", "{D1CD4403-0C61-4688-9CD5-97DEC548B36C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ManhattanReturns", "ManhattanReturns\ManhattanReturns.vcxproj", "{F7F75B1A-685D-4D04-BFD2-B279D6A2A45A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -419,6 +421,14 @@ Global
 		{D1CD4403-0C61-4688-9CD5-97DEC548B36C}.Release|x64.Build.0 = Release|x64
 		{D1CD4403-0C61-4688-9CD5-97DEC548B36C}.Release|x86.ActiveCfg = Release|Win32
 		{D1CD4403-0C61-4688-9CD5-97DEC548B36C}.Release|x86.Build.0 = Release|Win32
+		{F7F75B1A-685D-4D04-BFD2-B279D6A2A45A}.Debug|x64.ActiveCfg = Debug|x64
+		{F7F75B1A-685D-4D04-BFD2-B279D6A2A45A}.Debug|x64.Build.0 = Debug|x64
+		{F7F75B1A-685D-4D04-BFD2-B279D6A2A45A}.Debug|x86.ActiveCfg = Debug|Win32
+		{F7F75B1A-685D-4D04-BFD2-B279D6A2A45A}.Debug|x86.Build.0 = Debug|Win32
+		{F7F75B1A-685D-4D04-BFD2-B279D6A2A45A}.Release|x64.ActiveCfg = Release|x64
+		{F7F75B1A-685D-4D04-BFD2-B279D6A2A45A}.Release|x64.Build.0 = Release|x64
+		{F7F75B1A-685D-4D04-BFD2-B279D6A2A45A}.Release|x86.ActiveCfg = Release|Win32
+		{F7F75B1A-685D-4D04-BFD2-B279D6A2A45A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -464,6 +474,7 @@ Global
 		{AB830E3E-39BD-414F-A3E9-9F5D4DCF6ED5} = {351F3353-8629-4D6D-A78C-C6418F47A6A2}
 		{B857C19F-A473-43C9-B454-8A461AD3351D} = {351F3353-8629-4D6D-A78C-C6418F47A6A2}
 		{D1CD4403-0C61-4688-9CD5-97DEC548B36C} = {351F3353-8629-4D6D-A78C-C6418F47A6A2}
+		{F7F75B1A-685D-4D04-BFD2-B279D6A2A45A} = {351F3353-8629-4D6D-A78C-C6418F47A6A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3716907B-242C-4E4B-B492-FAE8A16012CE}
